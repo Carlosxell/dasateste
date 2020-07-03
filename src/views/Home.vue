@@ -87,6 +87,7 @@
     },
     methods: {
       changeType() {
+        this.form.search = '';
         this.userInfo = null;
         this.repoInfo = [];
         this.error = null;
