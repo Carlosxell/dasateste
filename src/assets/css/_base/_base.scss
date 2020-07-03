@@ -1,0 +1,87 @@
+@import '../_utilities/_exports';
+
+
+//renderização máxima de viewport para IE/EDGE em MOBILE/TABLETS
+@-ms-viewport {
+  max-width: 100% !important;
+  width: auto !important;
+}
+
+html {
+  font-size: #{$font-base}px;
+  overflow-y: auto;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+// Light reset
+html,
+body,
+blockquote,
+figure,
+form {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: $color-white;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  @include scrollbars(pxToRem(8), $color-gray);
+
+  //regra para esconder Sprite SVG
+  > svg {
+    &:first-child {
+      display: none;
+    }
+  }
+
+  &.s-noScroll {
+    overflow: hidden;
+  }
+}
+// Remove unwanted borders
+form,
+fieldset {
+  border: none;
+}
+// Consistency between browsers
+abbr {
+  cursor: help;
+  border-bottom: .063rem dotted #bbb;
+}
+
+svg:not(:root) {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  margin: 0;
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+strong,
+b {
+  font-weight: 600;
+}
+
+a {
+  &:visited {}
+}
+
+p {}

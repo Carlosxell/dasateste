@@ -1,0 +1,109 @@
+@import '../_utilities/_exports';
+
+.m-input {
+  appearance: none;
+  border: pxToRem(2) solid $color-gray;
+  border-radius: pxToRem(4);
+  background-color: transparent;
+  color: $color-dark;
+  display: block;
+  font-weight: 600;
+  margin-bottom: pxToRem(12);
+  outline: none;
+  padding: pxToRem(12);
+  width: 100%;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .76;
+  }
+
+  @include placeholder {
+    color: $color-gray;
+  }
+}
+
+.m-radio {
+  margin: 0 0 pxToRem(8);
+  display: block;
+  cursor: pointer;
+
+  &_input {
+    height: pxToRem(2);
+    opacity: 0;
+    position: absolute;
+    visibility: hidden;
+    width: pxToRem(2);
+
+    & + .m-radio_label {
+      line-height: pxToRem(20);
+      height: pxToRem(20);
+      padding-left: pxToRem(20);
+      display: block;
+      position: relative;
+
+      &:not(:empty) {
+        padding-left: pxToRem(24);
+      }
+
+      &:before,
+      &:after {
+        content: '';
+        width: pxToRem(20);
+        height: pxToRem(20);
+        display: block;
+        border-radius: 50%;
+        left: 0;
+        top: 0;
+        position: absolute;
+      }
+
+      &:before {
+        background: $color-light;
+        transition: background .2s ease, transform .4s cubic-bezier(.175, .885, .32, 2);
+      }
+
+      &:after {
+        background: $color-white;
+        transform: scale(.78);
+        transition: transform .6s cubic-bezier(.175, .885, .32, 1.4);
+      }
+    }
+
+    &:checked + .m-radio_label {
+      &:before {
+        transform: scale(1.04);
+        background: $color-lightBlue;
+      }
+
+      &:after {
+        transform: scale(.4);
+        transition: transform .3s ease;
+      }
+    }
+  }
+
+  &:hover {
+    &_input {
+      & + .m-radio_label {
+        &:before {
+          transform: scale(.92);
+        }
+
+        &:after {
+          transform: scale(.74);
+        }
+      }
+      &:checked + .m-radio_label {
+        &:after {
+          transform: scale(.4);
+        }
+      }
+    }
+  }
+}
