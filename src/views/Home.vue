@@ -35,11 +35,15 @@
 
           <div class="l-col--12 l-col--Xs4">
             <button class="m-btn--search"
+                    :class="{ 'm-btn--loading': searching }"
                     type="submit">Buscar</button>
           </div>
         </div>
       </div>
     </form>
+
+    <RepoListContainer :repo-list="repoInfo"
+                       v-if="repoInfo.length && !userInfo" />
 
     <p v-if="error">{{ error.message }}</p>
   </div>
@@ -48,12 +52,14 @@
 <script>
   import { getUser } from '../services/user-service';
   import { getRepos, getReposByUrl } from '../services/repo-service';
+  import RepoListContainer from '../components/RepoListContainer.vue';
 
   export default {
     name: 'Home',
-    components: {},
+    components: { RepoListContainer },
     data: () => {
       return {
+        searching: false,
         userInfo: null,
         repoInfo: [],
         error: null,
@@ -78,6 +84,7 @@
         let { search, type } = this.form;
 
         search = cleanStrCharacters(search);
+        this.searching = true;
         return (type === 1) ? this.getDataUser(search) : this.getDataRepo(search);
       },
       async getDataUser(desc) {
@@ -87,16 +94,25 @@
             this.userInfo = res;
             this.repoInfo = await getReposByUrl(res.repos_url);
           });
-        } catch (e) { return this.getError(e); }
+          this.searching = false;
+        } catch (e) {
+          this.searching = false;
+          return this.getError(e);
+        }
       },
       async getDataRepo(desc) {
         try {
           await getRepos(desc).then(res => {
             this.error = null;
+            this.userInfo = null;
             this.repoInfo = res.items;
             if (!res.items) { this.getError('Nada encontrado'); }
           });
-        } catch (e) { return this.getError(e); }
+          this.searching = false;
+        } catch (e) {
+          this.searching = false;
+          return this.getError(e);
+        }
       },
       getError(error) {
         this.userInfo = null;
@@ -115,6 +131,7 @@
 
   .c-form {
     border: pxToRem(2) solid $color-brand;
+    margin-bottom: pxToRem(12);
 
     &_header {
       background-color: $color-brand;

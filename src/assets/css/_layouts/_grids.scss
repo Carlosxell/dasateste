@@ -24,6 +24,7 @@ $grid-columns: 12;
   flex-grow: 1;
   flex-basis: 0;
   max-width: 100%;
+  margin-bottom: pxToRem(12);
   padding-left: $grid-gap;
   padding-right: $grid-gap;
 

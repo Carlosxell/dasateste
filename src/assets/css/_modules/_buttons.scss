@@ -45,4 +45,24 @@
       transition: background .12ms;
     }
   }
+
+  &--loading {
+    color: transparent;
+    pointer-events: none;
+
+    &:after {
+      animation: spinner .5s infinite linear;
+      border: pxToRem(2) solid #dbdbdb;
+      border-radius: pxToRem(290486);
+      border-right-color: transparent;
+      border-top-color: transparent;
+      content: "";
+      display: block;
+      height: pxToRem(16);
+      position: absolute;
+      width: #{pxToRem(16)};
+      left: calc(50% - (#{pxToRem(16)} / 2));
+      top: calc(50% - (#{pxToRem(16)} / 2));
+    }
+  }
 }
