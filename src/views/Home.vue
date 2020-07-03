@@ -25,7 +25,7 @@
           </div>
         </div>
 
-        <div class="l-grid s-marginTop--Md">
+        <div class="l-grid s-marginTop--Sm">
           <div class="l-col--12 l-col--Xs8">
             <input class="m-input"
                    :placeholder="`Nome ${form.type === 1 ? 'usuário' : 'repositório'}`"
@@ -42,6 +42,9 @@
       </div>
     </form>
 
+    <UserContainer :repo-list="repoInfo"
+                   :user-info="userInfo" />
+
     <RepoListContainer :repo-list="repoInfo"
                        v-if="repoInfo.length && !userInfo" />
 
@@ -53,10 +56,11 @@
   import { getUser } from '../services/user-service';
   import { getRepos, getReposByUrl } from '../services/repo-service';
   import RepoListContainer from '../components/RepoListContainer.vue';
+  import UserContainer from '../components/UserContainer.vue';
 
   export default {
     name: 'Home',
-    components: { RepoListContainer },
+    components: { RepoListContainer, UserContainer },
     data: () => {
       return {
         searching: false,
@@ -149,7 +153,7 @@
     }
   }
 
-  .s-marginTop--Md {
-    margin-top: pxToRem(20);
+  .s-marginTop--Sm {
+    margin-top: pxToRem(12);
   }
 </style>
