@@ -15,6 +15,7 @@
             <label class="m-radio"
                    :for="radio.id">
               <input class="m-radio_input"
+                     @change="changeType"
                      :id="radio.id"
                      name="typeSearch"
                      type="radio"
@@ -43,7 +44,8 @@
     </form>
 
     <UserContainer :repo-list="repoInfo"
-                   :user-info="userInfo" />
+                   :user-info="userInfo"
+                   v-if="userInfo" />
 
     <RepoListContainer :repo-list="repoInfo"
                        v-if="repoInfo.length && !userInfo" />
@@ -84,6 +86,11 @@
       };
     },
     methods: {
+      changeType() {
+        this.userInfo = null;
+        this.repoInfo = [];
+        this.error = null;
+      },
       searchInfo() {
         const { cleanStrCharacters } = this.$options.filters;
         let { search, type } = this.form;
@@ -111,7 +118,7 @@
             this.error = null;
             this.userInfo = null;
             this.repoInfo = res.items;
-            if (!res.items) { this.getError('Nada encontrado'); }
+            if (!res.items) { return this.getError('Nada encontrado'); }
           });
           this.searching = false;
         } catch (e) {
