@@ -4,7 +4,7 @@
           novalidate
           @submit.prevent="searchInfo">
       <div class="c-form_header">
-        <h1 class="c-form_header_title">Buscar Github Informações</h1>
+        <h1 class="c-form_header_title">Buscar Informações do Github</h1>
       </div>
 
       <div class="c-form_body">
@@ -48,7 +48,8 @@
     <RepoListContainer :repo-list="repoInfo"
                        v-if="repoInfo.length && !userInfo" />
 
-    <p v-if="error">{{ error.message }}</p>
+    <p class="c-form_error"
+       v-if="error">{{ error.message }}</p>
   </div>
 </template>
 
@@ -123,7 +124,7 @@
         this.repoInfo = [];
         this.error = {
           active: true,
-          message: 'Não encontrado'
+          message: 'Nenhum resultado encontrado'
         };
       }
     },
@@ -150,6 +151,13 @@
 
     &_body {
       padding: pxToRem(20) pxToRem(12);
+    }
+
+    &_error {
+      color: $color-danger;
+      font-size: pxToRem(18);
+      font-weight: 500;
+      text-align: center;
     }
   }
 
